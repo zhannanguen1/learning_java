@@ -1,4 +1,4 @@
-package net.xonich;
+package net.xonich.basics;
 
 public class DemoTypes {
     public static void main(String[] args) {
