@@ -23,15 +23,15 @@ public class DemoClasses {
         square.getArea();
         square.getPerimeter();
 
-        Rectangle rectangle = new Rectangle("Прямоугольник","green", 4, 7);
+        Rectangle rectangle = new Rectangle("green", 4, 7);
         rectangle.getArea();
         rectangle.getPerimeter();
 
-        Triangle triangle = new Triangle("Треугольник","yellow", 20, 18, 9);
+        Triangle triangle = new Triangle("yellow", 20, 18, 9);
         triangle.getArea();
         triangle.getPerimeter();
 
-        Circle circle = new Circle("Круг","pink", 2.4);
+        Circle circle = new Circle("pink", 2.4);
         circle.getArea();
         circle.getPerimeter();
     }

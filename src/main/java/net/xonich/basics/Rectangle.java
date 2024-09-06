@@ -2,11 +2,11 @@ package net.xonich.basics;
 
 public class Rectangle extends Figure {
 
-    double sideLength;
-    double sideWidth;
+    private final double sideLength;
+    private final double sideWidth;
 
-    public Rectangle(String figureName, String color, double sideLength, double sideWidth) {
-        super(figureName, color);
+    public Rectangle(String color, double sideLength, double sideWidth) {
+        super("Прямоугольник", color);
         this.sideLength = sideLength;
         this.sideWidth = sideWidth;
     }

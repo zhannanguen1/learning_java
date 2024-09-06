@@ -2,10 +2,10 @@ package net.xonich.basics;
 
 public class Circle extends Figure {
 
-    double radius;
+    private final double radius;
 
-    public Circle(String figureName, String color, double radius) {
-        super(figureName, color);
+    public Circle(String color, double radius) {
+        super("Круг", color);
         this.radius = radius;
     }
 

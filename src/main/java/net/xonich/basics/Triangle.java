@@ -2,12 +2,12 @@ package net.xonich.basics;
 
 public class Triangle extends Figure {
 
-    double triangleSideOne;
-    double triangleSideTwo;
-    double triangleSideThree;
+    private final double triangleSideOne;
+    private final double triangleSideTwo;
+    private final double triangleSideThree;
 
-    public Triangle(String figureName, String color, double triangleSideOne, double triangleSideTwo, double triangleSideThree) {
-        super(figureName, color);
+    public Triangle(String color, double triangleSideOne, double triangleSideTwo, double triangleSideThree) {
+        super("Треугольник", color);
         this.triangleSideOne = triangleSideOne;
         this.triangleSideTwo = triangleSideTwo;
         this.triangleSideThree = triangleSideThree;

@@ -2,7 +2,7 @@ package net.xonich.basics;
 
 public class Square extends Figure {
 
-    double sideLength;
+    private final double sideLength;
 
     public Square(String color, double sideLength) {
         super("Квадрат", color);
