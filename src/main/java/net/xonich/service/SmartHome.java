@@ -23,14 +23,26 @@ public class SmartHome {
      * Включает все подключенные лампы
      */
     public void turnOnAllLamps() {
-        connectedDevices.get("lamp").turnOn();
+        for (SmartDevice device : connectedDevices.values()) {
+            if (device instanceof SmartLamp) {
+                device.turnOn();
+            }
+        }
     }
 
-    public void turnOffLamp() {
-        connectedDevices.get("lamp").turnOff();
+    public void turnOffAllLamp() {
+        for (SmartDevice device : connectedDevices.values()) {
+            if (device instanceof SmartLamp) {
+                device.turnOff();
+            }
+        }
     }
 
-//    public void makeLightBrighter(String device) {
-//        connectedDevices.get("lamp").setBrightness(100);
-//    }
+    public void changeLightBrighter(String lampName, int brightness) {
+        SmartDevice device = connectedDevices.get(lampName);
+        if (device instanceof SmartLamp) {
+            SmartLamp lamp = (SmartLamp) device;
+            lamp.setBrightness(brightness);
+        }
+    }
 }
