@@ -1,6 +1,7 @@
 package net.xonich.files;
 
 import java.io.*;
+import java.util.List;
 
 public class DemoFiles2 {
     public static void fileRead(String[] args) throws IOException {
@@ -14,7 +15,7 @@ public class DemoFiles2 {
         fis.close();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void fileWrite(String[] args) throws IOException {
 
         OutputStream fos = new FileOutputStream("D:\\temp\\readme2.txt");
         fos.write("a".getBytes());
@@ -23,4 +24,40 @@ public class DemoFiles2 {
         fos.close();
     }
 
+    public static void main2(String[] args) throws IOException {
+
+        FileInputStream fis = new FileInputStream("D:\\temp\\HomeWork\\FileCRLF.txt");
+        FileOutputStream fos = new FileOutputStream("D:\\temp\\HomeWork\\FileLF.txt");
+        int symbol = fis.read();
+
+        while (symbol != -1) {
+
+            if (symbol != '\r') {
+                fos.write(symbol);
+            }
+            symbol = fis.read();
+        }
+        fis.close();
+        fos.close();
+    }
+
+    public static void main(String[] args) throws IOException {
+
+        FileInputStream fis = new FileInputStream("D:\\temp\\HomeWork\\DataForLinux.txt");
+        FileOutputStream fos = new FileOutputStream("D:\\temp\\HomeWork\\DataForWin.txt");
+        int symbol = fis.read();
+
+        while (symbol != -1) {
+
+            if (symbol == '\n') {
+                fos.write('\r');
+                fos.write(symbol);
+            } else {
+                fos.write(symbol);
+            }
+            symbol = fis.read();
+        }
+        fis.close();
+        fos.close();
+    }
 }
