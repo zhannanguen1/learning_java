@@ -1,0 +1,7 @@
+тут текст только с lf
+The exception you see - that I would strongly recommend a) to catch as a specific type, e.g.
+IOException, and b) to log or show with a message or a stack trace, and c) at least to check
+for in LogCat, from the DDMS perspective if you are programming with Eclipse - is probably due to
+Android not finding the config.txt file you are trying to open. Usually,
+for the simplest cases such as yours, files that are private to an application
+ are opened using openFileInput - see the documentation for details.
