@@ -1,8 +1,14 @@
 package net.xonich.files;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
 
 public class DemoFiles3 {
 
@@ -40,12 +46,66 @@ public class DemoFiles3 {
         String s;
         while ((s = sc.next("(are)|(is)|(am)")) != null) {
             System.out.println(s);
-        }; //todo
+        }
+        ; //todo
 
+    }
+
+    public static void main5(String[] args) {
+
+        DemoFiles3.class.getClassLoader().getResourceAsStream("test.txt");
     }
 
     public static void main(String[] args) {
 
-        DemoFiles3.class.getClassLoader().getResourceAsStream("test.txt");
+        test();
+    }
+    public static boolean isValid(String addr) {
+
+        List<String> addressParts = Arrays.stream(addr.split("\\.")).toList();
+
+        if (addressParts.size() == 4) {
+            for (String addressPart : addressParts) {
+                try {
+                    if (addressPart.length() > 1 && addressPart.startsWith("0")) {
+                        return false;
+                    }
+                    int num = Integer.parseInt(addressPart);
+                    if (num > 255) {
+                        return false;
+                    }
+                } catch (NumberFormatException e) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public static void test() {
+        String[] testList = {
+                "123.54.3.444",
+                "444.54.3.111",
+                "111.54.3.1a1",
+                "54344444",
+                "123.22.33",
+                "043.8.5.111",
+                "143.0.5.111",
+                "0.0.0.0"
+        };
+
+        boolean[] correctAnswers = {false, false, false, false, false, false, true, true};
+
+        boolean result;
+        for (int i = 0; i < testList.length; i++) {
+            result = isValid(testList[i]);
+
+            if (result == correctAnswers[i]) {
+                System.out.println(testList[i] + " ok");
+            } else {
+                System.out.println(testList[i] + " этот тест не прошел. Ожидалось: " + correctAnswers[i]);
+            }
+        }
     }
 }
