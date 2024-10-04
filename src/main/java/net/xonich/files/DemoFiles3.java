@@ -71,7 +71,7 @@ public class DemoFiles3 {
                         return false;
                     }
                     int num = Integer.parseInt(addressPart);
-                    if (num > 255) {
+                    if (num > 255 || num < 0) {
                         return false;
                     }
                 } catch (NumberFormatException e) {
