@@ -3,11 +3,11 @@ package net.xonich.exceptions;
 public class ExceptionsDemo {
 
     public static void main(String[] args) {
-        try {
+//        try {
             foo1();
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
-        }
+//        } catch (RuntimeException e) {
+//            System.out.println(e.getMessage());
+//        }
     }
 
     public static void foo1() {
@@ -17,11 +17,11 @@ public class ExceptionsDemo {
 
     public static void foo2() {
 
-        try {
+//        try {
             foo3();
-        } catch (RuntimeException e) {
-            System.out.println();
-        }
+//        } catch (RuntimeException e) {
+//            System.out.println();
+//        }
 
     }
 
