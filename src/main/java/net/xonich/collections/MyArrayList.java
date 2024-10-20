@@ -1,5 +1,7 @@
 package net.xonich.collections;
 
+import java.util.Arrays;
+
 public class MyArrayList {
 
     private int size = 0;
@@ -12,7 +14,16 @@ public class MyArrayList {
 
     public void set(int idx, int val) {
 
+        if (idx < 0 || idx >= store.length) {
+            throw new BusinessExceptions("Индекс выходит за пределы массива");
+        }
 
+        if (idx > size - 1) {
+            store[size] = val;
+            size++;
+        } else {
+            store[idx] = val;
+        }
     }
 
     public void add(int val) {
@@ -32,10 +43,27 @@ public class MyArrayList {
     }
 
     public void remove(int idx) {
+
+        if (idx < 0 || idx >= store.length) {
+            throw new BusinessExceptions("Индекс выходит за пределы массива");
+        }
+
+        store[idx] = 0;
+        if (idx < size - 1) {
+            for (int i = idx; i < size; i++) {
+                store[i] = store[i + 1];
+            }
+            size--;
+        }
     }
 
     public int size() {
 
         return size;
+    }
+
+    public void s() {
+
+        System.out.println(Arrays.toString(store));
     }
 }
