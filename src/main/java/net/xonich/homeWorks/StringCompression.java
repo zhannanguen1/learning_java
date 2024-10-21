@@ -1,11 +1,10 @@
 package net.xonich.homeWorks;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class stringCompression {
+public class StringCompression {
 
     public static void main(String[] args) {
 
@@ -190,5 +189,41 @@ public class stringCompression {
             a.add(String.valueOf(str.charAt(i)));
         }
         return a;
+    }
+
+    /**
+     * Input: string which consists of [a-z] symbols.
+     * Output: string which repeated sequences of characters are compressed into sequence of repeated character
+     * followed by number of how many times character was repeated.
+     * Ex.1 aaabbbb -> a3b4
+     * Ex.2 aaccbbb -> aaccb3 note: we don't replace aa to a2 because it would not yield any space benefit.
+     * @return new length of str
+     */
+    public static int strCompression(char[] str) {
+        int sqBeg = 0;
+        int cur = 0;
+
+        for (int i = 0; i <= str.length; i++) {
+            if (i == str.length || str[sqBeg] != str[i]){//end of the seq
+                int cnt = i - sqBeg;
+                if (cnt > 2){
+                    str[cur++] = str[sqBeg];
+                    str[cur++] = (char) ('0' + cnt);
+                } else {
+                    for (int j = 0; j < cnt; j++) {
+                        str[cur++] = str[sqBeg];
+                    }
+                }
+                sqBeg = i;
+            }
+        }
+
+        int res = cur;
+//        while (cur < str.length) {
+//            str[cur++] = '\0';
+//        }
+
+        return res;
+
     }
 }
