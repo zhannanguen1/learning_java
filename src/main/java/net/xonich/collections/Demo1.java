@@ -12,27 +12,30 @@ public class Demo1 {
 //        System.out.println("list.get(1) = " + list.get(1));
 //        System.out.println("list.size() = " + list.size());
 //
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 10; i++) {
             list.add((i + 1) * (i + 1));
         }
 //        System.out.println("list.size() = " + list.size());
 //
 //        list.set(0, 88);
 //        System.out.println("list.get(0) = " + list.get(0));
+        
+//        list.set(7, 7);
+//        list.remove(2);
+//        list.set(0, 55);
+//        System.out.println(list);
+//        System.out.println("list.size() = " + list.size());
+////        list.set(9, 66);
+//        System.out.println("list.size() = " + list.size());
+//        System.out.println(list);
+////        list.remove(5);
+//        System.out.println("list.size() = " + list.size());
+        System.out.println(list);
 
-        list.s();
-        list.set(7, 7);
-        list.s();
         list.remove(2);
-        list.s();
-        list.set(0, 55);
-        list.s();
-        System.out.println("list.size() = " + list.size());
-        list.set(9, 66);
-        System.out.println("list.size() = " + list.size());
-        list.s();
-        list.remove(5);
-        System.out.println("list.size() = " + list.size());
-        list.s();
+        System.out.println(list);
+        list.add(42);
+        System.out.println(list);
+
     }
 }

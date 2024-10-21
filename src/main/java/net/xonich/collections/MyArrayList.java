@@ -8,22 +8,19 @@ public class MyArrayList {
     private int[] store = new int[10];
 
     public int get(int idx) {
-
+        ensureIndex(idx);
         return store[idx];
     }
 
+    private void ensureIndex(int idx) {
+        if (idx < 0 || idx >= size) {
+            throw new IndexOutOfBoundsException("Индекс " + idx + " выходит за пределы диапазона " + "0 .. " + size);
+        }
+    }
+
     public void set(int idx, int val) {
-
-        if (idx < 0 || idx >= store.length) {
-            throw new BusinessExceptions("Индекс выходит за пределы массива");
-        }
-
-        if (idx > size - 1) {
-            store[size] = val;
-            size++;
-        } else {
-            store[idx] = val;
-        }
+        ensureIndex(idx);
+        store[idx] = val;
     }
 
     public void add(int val) {
@@ -42,19 +39,16 @@ public class MyArrayList {
         size++;
     }
 
-    public void remove(int idx) {
+    public void remove(int idx) { //toDo
 
-        if (idx < 0 || idx >= store.length) {
-            throw new BusinessExceptions("Индекс выходит за пределы массива");
-        }
+        ensureIndex(idx);
 
         store[idx] = 0;
-        if (idx < size - 1) {
-            for (int i = idx; i < size; i++) {
-                store[i] = store[i + 1];
-            }
-            size--;
+
+        for (int i = idx; i < size - 1; i++) {
+            store[i] = store[i + 1];
         }
+        size--;
     }
 
     public int size() {
@@ -62,8 +56,8 @@ public class MyArrayList {
         return size;
     }
 
-    public void s() {
-
-        System.out.println(Arrays.toString(store));
+    @Override
+    public String toString() { //toDo сделать распечатку Arrays.toString
+        return Arrays.toString(store);
     }
 }
