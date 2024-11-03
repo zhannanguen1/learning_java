@@ -79,6 +79,10 @@ public class MyArrayList {
 
     @Override
     public String toString() {
+
+        int[] newStore = new int[size];
+        System.arraycopy(store, 0, newStore, 0, newStore.length);
+        store = newStore;
         return Arrays.toString(store);
     }
 }
