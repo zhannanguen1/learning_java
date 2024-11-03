@@ -39,7 +39,27 @@ public class MyArrayList {
         size++;
     }
 
-    public void remove(int idx) { //toDo
+    public void add(int idx, int val) {
+
+        ensureIndex(idx);
+
+        if (size >= store.length) {
+
+            int[] newStore = new int[store.length * 2];
+            System.arraycopy(store, 0, newStore, 0, store.length);
+            store = newStore;
+        }
+
+        for (int i = idx; i < size + 1; i++) {
+            int temp = store[i];
+            store[i] = val;
+            val = temp;
+        }
+        size++;
+
+    }
+
+    public void remove(int idx) {
 
         ensureIndex(idx);
 
@@ -49,6 +69,7 @@ public class MyArrayList {
             store[i] = store[i + 1];
         }
         size--;
+        store[size] = 0;
     }
 
     public int size() {
@@ -57,7 +78,7 @@ public class MyArrayList {
     }
 
     @Override
-    public String toString() { //toDo сделать распечатку Arrays.toString
+    public String toString() {
         return Arrays.toString(store);
     }
 }
