@@ -13,7 +13,13 @@ public class MyArrayList {
     }
 
     private void ensureIndex(int idx) {
-        if (idx < 0 || idx >= size) {
+        if (idx < 0 || idx >= size ) {
+            throw new IndexOutOfBoundsException("Индекс " + idx + " выходит за пределы диапазона " + "0 .. " + size);
+        }
+    }
+
+    private void ensureIndexForAdd(int idx) {
+        if (idx < 0 || idx > size ) {
             throw new IndexOutOfBoundsException("Индекс " + idx + " выходит за пределы диапазона " + "0 .. " + size);
         }
     }
@@ -25,38 +31,32 @@ public class MyArrayList {
 
     public void add(int val) {
 
-        if (size >= store.length) {
-
-            int[] newStore = new int[store.length * 2];
-            for (int i = 0; i < store.length; i++) {
-
-                newStore[i] = store[i];
-            }
-//            System.arraycopy(store, 0, newStore, 0, store.length); аналогичный код
-            store = newStore;
-        }
+        resizeIfNeeded();
         store[size] = val;
         size++;
     }
 
     public void add(int idx, int val) {
 
-        ensureIndex(idx);
+        ensureIndexForAdd(idx);
 
+        resizeIfNeeded();
+
+        for (int i = size - 1; i >= idx; i--) {
+            store[i + 1] = store[i];
+        }
+        store[idx] = val;
+        size++;
+
+    }
+
+    private void resizeIfNeeded() {
         if (size >= store.length) {
 
             int[] newStore = new int[store.length * 2];
             System.arraycopy(store, 0, newStore, 0, store.length);
             store = newStore;
         }
-
-        for (int i = idx; i < size + 1; i++) {
-            int temp = store[i];
-            store[i] = val;
-            val = temp;
-        }
-        size++;
-
     }
 
     public void remove(int idx) {
@@ -80,9 +80,35 @@ public class MyArrayList {
     @Override
     public String toString() {
 
-        int[] newStore = new int[size];
-        System.arraycopy(store, 0, newStore, 0, newStore.length);
-        store = newStore;
-        return Arrays.toString(store);
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        boolean isFirst = true;
+        for (int i = 0; i < size; i++) {
+            if(!isFirst) {
+                sb.append(", ");
+            }
+            sb.append(store[i]);
+            isFirst = false;
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
