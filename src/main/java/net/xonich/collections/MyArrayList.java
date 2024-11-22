@@ -1,6 +1,8 @@
 package net.xonich.collections;
 
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class MyArrayList {
 
@@ -13,13 +15,13 @@ public class MyArrayList {
     }
 
     private void ensureIndex(int idx) {
-        if (idx < 0 || idx >= size ) {
+        if (idx < 0 || idx >= size) {
             throw new IndexOutOfBoundsException("Индекс " + idx + " выходит за пределы диапазона " + "0 .. " + size);
         }
     }
 
     private void ensureIndexForAdd(int idx) {
-        if (idx < 0 || idx > size ) {
+        if (idx < 0 || idx > size) {
             throw new IndexOutOfBoundsException("Индекс " + idx + " выходит за пределы диапазона " + "0 .. " + size);
         }
     }
@@ -77,6 +79,43 @@ public class MyArrayList {
         return size;
     }
 
+    public Iterator<Integer> iterator() {
+
+        return new Itr();
+    }
+
+    private class Itr implements Iterator<Integer> {
+
+        private int idx = -1;
+//        private MyArrayList myArrayList;
+
+//        public Itr(MyArrayList myArrayList) {
+//            this.myArrayList = myArrayList;
+//        }
+
+        @Override
+        public void remove() { //toDo удаляет текущий
+            Iterator.super.remove();
+        }
+
+        @Override
+        public boolean hasNext() {
+
+            return size > idx + 1;
+        }
+
+        @Override
+        public Integer next() {
+
+            if (hasNext()) {
+                idx++;
+                return store[idx];
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
+    }
+
     @Override
     public String toString() {
 
@@ -84,7 +123,7 @@ public class MyArrayList {
         sb.append("[");
         boolean isFirst = true;
         for (int i = 0; i < size; i++) {
-            if(!isFirst) {
+            if (!isFirst) {
                 sb.append(", ");
             }
             sb.append(store[i]);
