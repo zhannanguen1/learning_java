@@ -28,16 +28,31 @@ public class Demo3 {
 //        List.add("foo");
 
         MyArrayList myArrayList = new MyArrayList();
-        myArrayList.add(1);
-        myArrayList.add(2);
-        myArrayList.add(3);
-        for (Iterator<Integer> it = myArrayList.iterator(); it.hasNext();) {
-            int a = it.next();
-            System.out.println(a);
+        for (int i = 1; i <= 10; i++) {
+            myArrayList.add(i);
         }
+//        for (Iterator<Integer> it = myArrayList.iterator(); it.hasNext(); ) {
+//            int a = it.next();
+//            System.out.println(a);
+//        }
+        Iterator<Integer> it1 = myArrayList.iterator();
+        it1.next();
+        it1.remove();
+        it1.next();
+        it1.next();
+        it1.next();
+        it1.remove();
+        it1.next();
+        it1.next();
+        it1.next();
+        it1.next();
+//        it1.next();
+
+
+        System.out.println();
     }
 
     public static void foo(String[] args) {
-         int l = 10;
+        int l = 10;
     }
 }

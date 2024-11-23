@@ -1,6 +1,5 @@
 package net.xonich.collections;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -94,8 +93,11 @@ public class MyArrayList {
 //        }
 
         @Override
-        public void remove() { //toDo удаляет текущий
-            Iterator.super.remove();
+        public void remove() {
+            ensureIndex(idx);
+            if (idx < size - 1) {
+                MyArrayList.this.remove(idx);
+            }
         }
 
         @Override
