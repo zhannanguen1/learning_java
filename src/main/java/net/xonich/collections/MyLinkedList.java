@@ -4,18 +4,16 @@ public class MyLinkedList {
 
     private int size;
     private Node head;
+    private Node tail;
 
-    public Node addFirstNode(String val) {
-        if (head == null) {
-            head = new Node(val);
-        } else {
-            head = new Node(val, head);
-        }
+    public void addFirst(String val) {
+
+        head = new Node(val, head);
         size++;
-        return head;
+
     }
 
-    public Node addLastNode(String val) {
+    public void addLast(String val) { //toDO
 
         if (head == null) {
             head = new Node(val);
@@ -27,7 +25,7 @@ public class MyLinkedList {
             curr.next = new Node(val);
         }
         size++;
-        return head;
+
     }
 
     public int getSize() {
@@ -35,14 +33,13 @@ public class MyLinkedList {
         return size;
     }
 
-    public static void main(String[] args) {
+    private static class Node {
 
-        MyLinkedList mll = new MyLinkedList();
+        String val;
+        Node next;
 
-        mll.addFirstNode("a");
-        mll.addFirstNode("J");
-        mll.addLastNode("v");
-        mll.addLastNode("a");
-        System.out.println(mll.getSize());
+        public Node() {}
+        public Node(String val) {this.val = val;}
+        public Node(String val, Node next) {this.val = val; this.next = next;}
     }
 }
