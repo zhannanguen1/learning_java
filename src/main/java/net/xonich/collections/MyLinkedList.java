@@ -1,31 +1,31 @@
 package net.xonich.collections;
 
-public class MyLinkedList {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class MyLinkedList<E> implements Iterable<E> {
 
     private int size;
-    private Node head;
-    private Node tail;
+    private Node<E> head;
+    private Node<E> tail;
 
-    public void addFirst(String val) {
 
-        head = new Node(val, head);
+
+    public void addFirst(E val) {
+        head = new Node<E>(val, head);
         size++;
+
+        if(size == 1) {
+            tail = head;
+        }
 
     }
 
-    public void addLast(String val) { //toDO
+    public void addLast(E val) {
 
-        if (head == null) {
-            head = new Node(val);
-        } else {
-            Node curr = head;
-            while (curr.next != null) {
-                curr = curr.next;
-            }
-            curr.next = new Node(val);
-        }
+        tail.next = new Node<>(val);
+        tail = tail.next;
         size++;
-
     }
 
     public int getSize() {
@@ -33,13 +33,69 @@ public class MyLinkedList {
         return size;
     }
 
-    private static class Node {
+    @Override
+    public Iterator<E> iterator() {
 
-        String val;
-        Node next;
+        return new Itr();
+    }
 
-        public Node() {}
-        public Node(String val) {this.val = val;}
-        public Node(String val, Node next) {this.val = val; this.next = next;}
+    private class Itr implements Iterator<E> {
+
+
+        private Node<E> curr = null;
+        private Node<E> prev = null;
+
+        @Override
+        public boolean hasNext() {
+
+            return curr.next != null;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public E next() {
+
+            if (curr!=null && hasNext()) {
+                prev = curr;
+                curr = curr.next;
+            } else {
+                curr = head;
+            }
+            return (E) curr.val;
+        }
+
+        @Override
+        public void remove() throws NoSuchElementException {
+
+            if (curr == null) {
+                throw new NoSuchElementException();
+            }
+            if (prev == null) {
+                head = head.next;
+                curr = null;
+            } else {
+               prev.next = curr.next;
+               curr = prev;
+            }
+            size--;
+        }
+    }
+
+    private static class Node<E> {
+
+        E val;
+        Node<E> next;
+
+        public Node() {
+        }
+
+        public Node(E val) {
+            this.val = val;
+        }
+
+        public Node(E val, Node<E> next) {
+            this.val = val;
+            this.next = next;
+        }
     }
 }

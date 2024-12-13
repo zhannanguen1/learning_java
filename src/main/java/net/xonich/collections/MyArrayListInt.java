@@ -3,15 +3,14 @@ package net.xonich.collections;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class MyArrayList<E> {
+public class MyArrayListInt {
 
     private int size = 0;
-    private Object[] store = new Object[10];
+    private int[] store = new int[10];
 
-    @SuppressWarnings("unchecked")
-    public E get(int idx) {
+    public int get(int idx) {
         ensureIndex(idx);
-        return (E) store[idx];
+        return store[idx];
     }
 
     private void ensureIndex(int idx) {
@@ -26,19 +25,19 @@ public class MyArrayList<E> {
         }
     }
 
-    public void set(int idx, E val) {
+    public void set(int idx, int val) {
         ensureIndex(idx);
         store[idx] = val;
     }
 
-    public void add(E val) {
+    public void add(int val) {
 
         resizeIfNeeded();
         store[size] = val;
         size++;
     }
 
-    public void add(int idx, E val) {
+    public void add(int idx, int val) {
 
         ensureIndexForAdd(idx);
 
@@ -55,7 +54,7 @@ public class MyArrayList<E> {
     private void resizeIfNeeded() {
         if (size >= store.length) {
 
-            Object[] newStore = new Object[store.length * 2];
+            int[] newStore = new int[store.length * 2];
             System.arraycopy(store, 0, newStore, 0, store.length);
             store = newStore;
         }
@@ -79,12 +78,12 @@ public class MyArrayList<E> {
         return size;
     }
 
-    public Iterator<E> iterator() {
+    public Iterator<Integer> iterator() {
 
         return new Itr();
     }
 
-    private class Itr implements Iterator<E> {
+    private class Itr implements Iterator<Integer> {
 
         private int idx = -1;
 //        private MyArrayList myArrayList;
@@ -97,7 +96,7 @@ public class MyArrayList<E> {
         public void remove() {
             ensureIndex(idx);
             if (idx < size - 1) {
-                MyArrayList.this.remove(idx);
+                MyArrayListInt.this.remove(idx);
             }
         }
 
@@ -107,13 +106,12 @@ public class MyArrayList<E> {
             return size > idx + 1;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        public E next() {
+        public Integer next() {
 
             if (hasNext()) {
                 idx++;
-                return (E) store[idx];
+                return store[idx];
             } else {
                 throw new NoSuchElementException();
             }
