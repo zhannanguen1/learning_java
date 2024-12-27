@@ -9,8 +9,8 @@ public class Demo6 {
 
         String[] strings = new String[10];
         strings[0] = "qwe";
-        Object[] objects = strings;
-        objects[1] = 42;
+//        Object[] objects = strings;
+//        objects[1] = 42;
 
         List<String> strs = new ArrayList<>();
         strs.add("asd");

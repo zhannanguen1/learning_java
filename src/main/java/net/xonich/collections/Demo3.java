@@ -59,7 +59,7 @@ public class Demo3 {
 
         MyLinkedList<Integer> myLinkedList = new MyLinkedList<>();
         myLinkedList.addFirst(111);
-        System.out.println();
+//        System.out.println();
         myLinkedList.addLast(222);
         myLinkedList.addLast(333);
         myLinkedList.addLast(444);
@@ -72,9 +72,7 @@ public class Demo3 {
         Integer next2 = it1.next(); // 222
         it1.remove();
         Integer next3 = it1.next(); // 333
-        it1.remove();
         Integer next4 = it1.next(); // 444
-//        myLinkedList.addFirst(111);
 
         System.out.println();
     }

@@ -10,12 +10,11 @@ public class MyLinkedList<E> implements Iterable<E> {
     private Node<E> tail;
 
 
-
     public void addFirst(E val) {
         head = new Node<E>(val, head);
         size++;
 
-        if(size == 1) {
+        if (size == 1) {
             tail = head;
         }
 
@@ -40,43 +39,52 @@ public class MyLinkedList<E> implements Iterable<E> {
     }
 
     private class Itr implements Iterator<E> {
-
-
-        private Node<E> curr = null;
-        private Node<E> prev = null;
+        private Node<E> prev;
+        private Node<E> curr = head;
 
         @Override
         public boolean hasNext() {
 
-            return curr.next != null;
+            return curr != null;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         public E next() {
 
-            if (curr!=null && hasNext()) {
-                prev = curr;
-                curr = curr.next;
-            } else {
-                curr = head;
+            if (!hasNext()) {
+                throw new NoSuchElementException();
             }
-            return (E) curr.val;
+
+            prev = curr;
+            E val = curr.val;
+            curr = curr.next;
+            return val;
         }
 
         @Override
-        public void remove() throws NoSuchElementException {
-
-            if (curr == null) {
-                throw new NoSuchElementException();
-            }
+        public void remove() {
             if (prev == null) {
-                head = head.next;
-                curr = null;
-            } else {
-               prev.next = curr.next;
-               curr = prev;
+                throw new IllegalStateException();
             }
+
+            if (prev == head) {
+                head = head.next;
+                if (head == null) {
+                    tail = null;
+                }
+            } else {
+                Node<E> temp = head;
+                while (temp != null && temp.next != prev) {
+                    temp = temp.next;
+                }
+                if (temp != null) {
+                    temp.next = prev.next;
+                    if (temp.next == null) {
+                        tail = temp;
+                    }
+                }
+            }
+            prev = null;
             size--;
         }
     }
