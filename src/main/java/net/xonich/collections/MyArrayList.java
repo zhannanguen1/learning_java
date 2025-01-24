@@ -3,7 +3,7 @@ package net.xonich.collections;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class MyArrayList<E> {
+public class MyArrayList<E> implements Iterable<E>{
 
     private int size = 0;
     private Object[] store = new Object[10];
@@ -79,6 +79,14 @@ public class MyArrayList<E> {
         return size;
     }
 
+    public void addAll(MyArrayList<? extends E> other) {
+
+        for (E e : other) {
+            add(e);
+        }
+    }
+
+    @Override
     public Iterator<E> iterator() {
 
         return new Itr();
