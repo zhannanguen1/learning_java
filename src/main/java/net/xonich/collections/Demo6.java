@@ -10,19 +10,19 @@ public class Demo6 {
 
         String[] strings = new String[10];
         strings[0] = "qwe";
-//        Object[] objects = strings;
-//        objects[1] = 42;
+        Object[] objects = strings;
+        objects[1] = 42; // во время исполнения появилась ArrayStoreException
 
         List<String> strs = new ArrayList<>();
         strs.add("asd");
-//        List<Object> objs = strs;
+//        List<Object> objs = strs; // такое не пропустит компилятор
 
         Integer i = 42;
         Long l = 11L;
-        Number n = l;
+        Number n = l; //Long является подклассом Number. Поэтому этот вариант норм
 
-//        List<Number> numbers = new ArrayList<Integer>();
-        Number[] numArr = new Integer[10];
+//        List<Number> numbers = new ArrayList<Integer>(); // Дженерики не ковариантны
+        Number[] numArr = new Integer[10]; // создать такой массив можно, но добавить туда что-то помимо Integer нельзя
     }
 
     public static void main_PECS(String[] args) {
@@ -70,4 +70,5 @@ public class Demo6 {
             System.out.println(number);
         }
     }
+
 }
