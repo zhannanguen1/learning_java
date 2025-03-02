@@ -46,6 +46,7 @@ public class HashMapDemo {
         myHashMap.put("Anna", dummy);
         myHashMap.put("Katya", dummy);
         System.out.println("myHashMap.contains(\"Anna\") = " + myHashMap.contains("Anna"));
+        System.out.println("myHashMap.contains(\"Misha\") = " + myHashMap.contains("Misha"));
         System.out.println("myHashMap.size() = " + myHashMap.size());
         myHashMap.put("Senya", dummy);
         myHashMap.put("Nadya", dummy);
@@ -59,6 +60,10 @@ public class HashMapDemo {
         myHashMap.put("Dima", dummy);
         myHashMap.put("Olya", dummy);
         System.out.println("myHashMap.size() = " + myHashMap.size());
+        System.out.println("myHashMap.put(\"Dima\", \"+\") = " + myHashMap.put("Dima", "+"));
+        System.out.println("myHashMap.get(\"Dima\") = " + myHashMap.get("Dima"));
+        System.out.println("myHashMap.replace(\"Dima\", \"-\") = " + myHashMap.replace("Dima", "-"));
+        System.out.println("myHashMap.get(\"Dima\") = " + myHashMap.get("Dima"));
     }
 }
 

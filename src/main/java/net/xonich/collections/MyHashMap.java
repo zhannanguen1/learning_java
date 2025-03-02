@@ -2,7 +2,7 @@ package net.xonich.collections;
 
 public class MyHashMap<K, V> {
 
-    public static class Node<K, V> {
+    private static class Node<K, V> {
 
         private K key;
         private V value;
@@ -15,37 +15,76 @@ public class MyHashMap<K, V> {
     }
 
     private int size;
-    private final Node<K, V>[] hashTable = new Node[16];
+    private Node<K, V>[] hashTable = new Node[16];
     private float loadFactor = 0.75f;
-    private int threshold = (int) (loadFactor * hashTable.length);
+ //toDO вычислять "на лету". Написать функцию для определения порога rehashIfNeeded
+
+    private int rehashIfNeeded() {
+
+        return (int) (loadFactor * hashTable.length);
+    }
 
     private int bucket(K key) {
 
-        return (key.hashCode() & 0x7FFFFFFF) % hashTable.length;
+        return Math.abs(key.hashCode() % hashTable.length);
     }
 
-    public void put(K key, V val) {
+    public V put(K key, V val) { //toDO долж возвр V (старое значение). Если значение заменяем, то возвр старое. Если уникальное, то null
 
-        if (size >= threshold) {
+        if (size >= rehashIfNeeded()) {
             reHash();
         }
 
         int bucket = bucket(key);
-        Node<K, V> newNode = new Node<>(key, val);
 
         if (hashTable[bucket] != null) {
             Node<K, V> curr = hashTable[bucket];
             while (curr != null) {
                 if (curr.key.equals(key)) {
+                    V oldVal = curr.value;
                     curr.value = val;
-                    return;
+                    return oldVal;
                 }
                 curr = curr.next;
             }
-            newNode.next = hashTable[bucket];
         }
+
+        Node<K, V> newNode = new Node<>(key, val);
+        newNode.next = hashTable[bucket];
         hashTable[bucket] = newNode;
         size++;
+        return null;
+    }
+
+    //toDo get() Если знач есть, то его. Иначе null
+
+    public V get(K key) {
+        int bucket = bucket(key);
+        Node<K, V> curr = hashTable[bucket]; //
+        while (curr != null) {
+            if (curr.key.equals(key)) {
+                return curr.value;
+            }
+            curr = curr.next;
+        }
+        return null;
+    }
+
+    //toDO replace(). Не может созд нов пару. Всегда заменяет сущ-ю
+    public V replace(K key, V val) {
+
+        int bucket = bucket(key);
+
+        Node<K, V> curr = hashTable[bucket];
+        while (curr != null) {
+            if (curr.key.equals(key)) {
+                V oldValue = curr.value;
+                curr.value = val;
+                return oldValue;
+            }
+            curr = curr.next;
+        }
+        return null;
     }
 
     public boolean contains(K key) {
@@ -73,15 +112,16 @@ public class MyHashMap<K, V> {
         Node<K, V>[] newTable = (Node<K, V>[]) new Node[newCapacity];
 
         Node<K, V>[] oldTable = hashTable;
-        threshold = (int) (newCapacity * loadFactor);
 
-        for (Node<K, V> head : oldTable) {
-            while (head != null) {
-                Node<K, V> next = head.next;
-                int newBucket = bucket(head.key);
-                head.next = newTable[newBucket];
-                newTable[newBucket] = head;
-                head = next;
+        hashTable = newTable;
+
+        for (Node<K, V> curr : oldTable) {
+            while (curr != null) {
+                Node<K, V> next = curr.next;
+                int newBucket = Math.abs(curr.key.hashCode() % newCapacity);
+                curr.next = newTable[newBucket];
+                newTable[newBucket] = curr;
+                curr = next;
             }
         }
     }
