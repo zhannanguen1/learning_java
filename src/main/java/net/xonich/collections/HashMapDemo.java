@@ -64,6 +64,7 @@ public class HashMapDemo {
         System.out.println("myHashMap.get(\"Dima\") = " + myHashMap.get("Dima"));
         System.out.println("myHashMap.replace(\"Dima\", \"-\") = " + myHashMap.replace("Dima", "-"));
         System.out.println("myHashMap.get(\"Dima\") = " + myHashMap.get("Dima"));
+        System.out.println("myHashMap.put(\"AAAAAA\") = " + myHashMap.put("AAAAAA", "aaaa"));
     }
 }
 

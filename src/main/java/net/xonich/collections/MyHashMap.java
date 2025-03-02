@@ -17,11 +17,14 @@ public class MyHashMap<K, V> {
     private int size;
     private Node<K, V>[] hashTable = new Node[16];
     private float loadFactor = 0.75f;
- //toDO вычислять "на лету". Написать функцию для определения порога rehashIfNeeded
+    //toDO вычислять "на лету". Написать функцию для определения порога rehashIfNeeded
 
-    private int rehashIfNeeded() {
+    private void rehashIfNeeded() {
 
-        return (int) (loadFactor * hashTable.length);
+        if (size >= (loadFactor * hashTable.length)) {
+            reHash();
+        }
+//        return (int) (loadFactor * hashTable.length);
     }
 
     private int bucket(K key) {
@@ -30,10 +33,10 @@ public class MyHashMap<K, V> {
     }
 
     public V put(K key, V val) { //toDO долж возвр V (старое значение). Если значение заменяем, то возвр старое. Если уникальное, то null
-
-        if (size >= rehashIfNeeded()) {
-            reHash();
-        }
+        rehashIfNeeded();
+//        if (size >= rehashIfNeeded()) {
+//            reHash();
+//        }
 
         int bucket = bucket(key);
 
@@ -60,7 +63,7 @@ public class MyHashMap<K, V> {
 
     public V get(K key) {
         int bucket = bucket(key);
-        Node<K, V> curr = hashTable[bucket]; //
+        Node<K, V> curr = hashTable[bucket];
         while (curr != null) {
             if (curr.key.equals(key)) {
                 return curr.value;
