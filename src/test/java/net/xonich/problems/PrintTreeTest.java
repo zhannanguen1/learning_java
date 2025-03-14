@@ -27,6 +27,7 @@ class PrintTreeTest {
         childOne.r = childFive;
         childTwo.r = childSix;
 
-        PrintTree.printTree(root);
+//        PrintTree.printTree(root);
+        PrintTree.printTreeBroad(root);
     }
 }

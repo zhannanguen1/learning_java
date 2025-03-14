@@ -9,9 +9,9 @@ public class SameTreeTest {
     @Test
     public void sameTreeTest() {
 
-        TreeNode root = new TreeNode(1);
-        root.left = new TreeNode(2);
-        root.right = new TreeNode(3);;
+        TreeNode root = new TreeNode(1, new TreeNode(2), new TreeNode(3));
+//        root.left = new TreeNode(2);
+//        root.right = new TreeNode(3);
 
         TreeNode root2 = new TreeNode(1);
         root2.left = new TreeNode(2);
