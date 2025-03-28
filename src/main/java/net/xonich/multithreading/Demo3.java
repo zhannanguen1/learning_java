@@ -19,11 +19,13 @@ public class Demo3 {
 
         @Override
         public void run() {
-            long startTime = System.nanoTime();
+            long startTime = System.currentTimeMillis();
+            BigDecimal result = this.result;
             for (int i = begin; i <= end; i++) {
                 result = result.multiply(BigDecimal.valueOf(i));
             }
-            executionTime = System.nanoTime() - startTime;
+            this.result = result;
+            executionTime = System.currentTimeMillis() - startTime;
         }
 
         public BigDecimal result() {
@@ -35,16 +37,12 @@ public class Demo3 {
         }
     }
 
-    public static int step(int number, int numThreads) {
-
-        return number / numThreads;
-    }
-
     public static void main(String[] args) throws InterruptedException {
 
-        int factorialNumber = 101;
+        int factorialNumber = 400000;
         int numThreads = 4;
-        int step = step(factorialNumber, numThreads);
+
+        int step = factorialNumber / numThreads;
         int begin = 1;
         int end = step;
 
