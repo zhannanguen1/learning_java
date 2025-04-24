@@ -19,6 +19,13 @@ public class Demo5 {
                         System.out.print(Thread.currentThread().getName() + ": ");
                         System.out.println(curr);
                         curr++;
+                        mutex.notifyAll();
+                    } else {
+                        try {
+                            mutex.wait();
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
             }
@@ -38,6 +45,13 @@ public class Demo5 {
                         System.out.print(Thread.currentThread().getName() + ": ");
                         System.out.println("Fizz");
                         curr++;
+                        mutex.notifyAll();
+                    } else {
+                        try {
+                            mutex.wait();
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
             }
@@ -57,6 +71,13 @@ public class Demo5 {
                         System.out.print(Thread.currentThread().getName() + ": ");
                         System.out.println("Buzz");
                         curr++;
+                        mutex.notifyAll();
+                    } else {
+                        try {
+                            mutex.wait();
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
             }
@@ -76,6 +97,13 @@ public class Demo5 {
                         System.out.print(Thread.currentThread().getName() + ": ");
                         System.out.println("FizzBuzz");
                         curr++;
+                        mutex.notifyAll();
+                    } else {
+                        try {
+                            mutex.wait();
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
             }
