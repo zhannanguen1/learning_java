@@ -4,7 +4,7 @@ public class MyConcurrentQueue<T> {
 
     private final Object[] data; // массив для хранения элементов очереди
     private int start; // начало
-    private int size; //текущее кол-во элементов в очереди
+    int size; //текущее кол-во элементов в очереди
 
     public MyConcurrentQueue(int capacity) {
         data = new Object[capacity];
