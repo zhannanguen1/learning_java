@@ -6,8 +6,8 @@ public class Point {
 
     private static class Coordinates {
 
-        private final double x;
-        private final double y;
+        private double x;
+        private double y;
 
         public Coordinates(double x, double y) {
             this.x = x;
