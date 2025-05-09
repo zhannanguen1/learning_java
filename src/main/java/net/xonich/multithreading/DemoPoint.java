@@ -1,5 +1,7 @@
 package net.xonich.multithreading;
 
+import java.util.Arrays;
+
 public class DemoPoint {
 
     static class Task implements Runnable {
@@ -51,6 +53,6 @@ public class DemoPoint {
         t4.join();
         t5.join();
 
-        System.out.println("Сейчас точка в позиции: " + point);
+        System.out.println("Сейчас точка в позиции: " + point.getX() + ", " + point.getY());
     }
 }
