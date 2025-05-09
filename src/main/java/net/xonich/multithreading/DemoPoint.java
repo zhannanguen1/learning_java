@@ -1,7 +1,5 @@
 package net.xonich.multithreading;
 
-import java.util.Arrays;
-
 public class DemoPoint {
 
     static class Task implements Runnable {

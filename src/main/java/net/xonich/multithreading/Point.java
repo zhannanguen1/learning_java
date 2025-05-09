@@ -35,8 +35,12 @@ public class Point {
         Coordinates newCoordinates;
 
         do {
-            current = coordinates.get();
-            newCoordinates = new Coordinates(current.x + dx, current.y + dy);
+            current = coordinates.get(); // получаем текущие координаты
+            newCoordinates = new Coordinates(current.x + dx, current.y + dy); // Вычисляем новые координаты
         } while (!coordinates.compareAndSet(current, newCoordinates));
+//        coordinates.set(newCoordinates);
+        // Если другой поток еще не изменил координаты, то CAS выполняется и цикл завершается.
+        // Если данные изменены, то compareAndSet вернет false и цикл повторится
+
     }
 }
