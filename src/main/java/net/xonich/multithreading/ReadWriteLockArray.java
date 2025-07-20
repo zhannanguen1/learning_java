@@ -8,8 +8,8 @@ public class ReadWriteLockArray<T> {
 
     private final T[] array;
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
-    Lock rLock = lock.readLock();
-    Lock wLock = lock.writeLock();
+    private final Lock rLock = lock.readLock();
+    private final Lock wLock = lock.writeLock();
 
     @SuppressWarnings("unchecked")
     ReadWriteLockArray(int size) {
@@ -21,7 +21,7 @@ public class ReadWriteLockArray<T> {
         rLock.lock();
         try {
             if (idx < 0 || idx >= array.length) {
-                throw new IndexOutOfBoundsException();
+                throw new IndexOutOfBoundsException("");
             }
             return array[idx];
         } finally {
@@ -43,7 +43,7 @@ public class ReadWriteLockArray<T> {
     }
 
     public int length() {
-        rLock.lock();
+//        rLock.lock(); Не нужен лок
         try {
             return array.length;
         } finally {
