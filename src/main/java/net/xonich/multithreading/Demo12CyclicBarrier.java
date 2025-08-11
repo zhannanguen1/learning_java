@@ -28,19 +28,24 @@ public class Demo12CyclicBarrier {
                     startSignal.await();
                     System.out.println("Бегун № " + x + " стартовал");
 
-                    for (int j = 0; j < LAPS_COUNT; j++) { // кол-во кругов = 3
+//                    for (int j = 0; j < LAPS_COUNT; j++) { // кол-во кругов = 3
+//
+//                        while (remaining > 0) {
+//                            Thread.sleep(10);
+//                            remaining -= r.nextInt(5);
+//                        }
+//                        System.out.println("Бегун № " + x + " завершил круг " + j);
+//
+//
+//                            barrier.await();
+//                    }
 
-                        while (remaining > 0) {
-                            Thread.sleep(10);
-                            remaining -= r.nextInt(5);
-                        }
-                        System.out.println("Бегун № " + x + " завершил круг " + j + 1);
-
-                        if (j < LAPS_COUNT) {
-                            barrier.await();
-                        }
-
+                    while (remaining > 0) {
+                        barrier.await();
+                        System.out.println("Бегун № " + x + " делает шаг");
+                        remaining -= r.nextInt(5);
                     }
+
                     System.out.println("Бегун № " + x + " финишировал!");
                     return true;
                 });
