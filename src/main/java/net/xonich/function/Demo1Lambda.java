@@ -1,6 +1,7 @@
 package net.xonich.function;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.*;
 
@@ -50,6 +51,7 @@ public class Demo1Lambda {
 
 //        ints.stream().forEach((el) -> System.out.println(el));
 
+        IntFunction<String> intArraysToStringArrays = Integer::toString;
     }
 
     public static void main(String[] args) {
