@@ -17,9 +17,9 @@ public class ArraysFunctionalDemo {
         String[] words = {"java", "python", "c++", "javascript"};
 
         Function<int[], String> toString = Arrays::toString;
-        BiPredicate<Integer[], Integer[]> arrayComparator = Arrays::equals;
+        BiPredicate<Integer[], Integer[]> arraysIsEquals = Arrays::equals;
         System.out.println("Array to string: " + toString.apply(nums));
-        System.out.println("Arrays equal: " + arrayComparator.test(numbers, numbers2));
+        System.out.println("Arrays equal: " + arraysIsEquals.test(numbers, numbers2));
 
         BiConsumer<int[], Integer> arrayFiller = Arrays::fill;
         int[] copy = nums.clone();
@@ -34,7 +34,5 @@ public class ArraysFunctionalDemo {
         streamCreator.apply(nums).forEach(System.out::println);
 
         Arrays.stream(words).map(String::toUpperCase).forEach(System.out::println);
-
     }
-
 }
