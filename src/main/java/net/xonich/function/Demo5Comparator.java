@@ -64,36 +64,38 @@ public class Demo5Comparator {
 
     public interface MyComparator<T> {
 
-        public int compare(T lhs, T rhs);
+        int compare(T lhs, T rhs);
 
-        public static <T extends Comparable<? super T>> MyComparator<T> naturalOrder() {
+        static <T extends Comparable<? super T>> MyComparator<T> naturalOrder() {
 
-            MyComparator<T> myComparator = new MyComparator<T>() {
-                @Override
-                public int compare(T lhs, T rhs) {
-                    if (lhs == null && rhs == null) return 0;
-                    if (lhs == null) return -1;
-                    if (rhs == null) return 1;
+            return (lhs, rhs) -> {
+                if (lhs == null && rhs == null) return 0;
+                if (lhs == null) return -1;
+                if (rhs == null) return 1;
 
-                    return lhs.compareTo(rhs);
-                }
+                return lhs.compareTo(rhs);
             };
-            return myComparator;
         }
 
-        public static <T extends Comparable<? super T>> MyComparator<T> reverseOrder() {
+        static <T extends Comparable<T>> MyComparator<T> reverseOrder() {
 
-            MyComparator<T> myComparator = new MyComparator<T>() {
-                @Override
-                public int compare(T lhs, T rhs) {
-                    if (lhs == null && rhs == null) return 0;
-                    if (lhs == null) return 1;
-                    if (rhs == null) return -1;
+//            return (lhs, rhs) -> {
+//                MyComparator<T> natural = naturalOrder();
+//                return natural.compare(rhs, lhs);
+//            };
+            return (lhs, rhs) -> MyComparator.<T>naturalOrder().compare(rhs, lhs);
 
-                    return rhs.compareTo(lhs);
-                }
-            };
-            return myComparator;
+//            MyComparator<T> myComparator = new MyComparator<T>() {
+//                @Override
+//                public int compare(T lhs, T rhs) {
+//                    if (lhs == null && rhs == null) return 0;
+//                    if (lhs == null) return 1;
+//                    if (rhs == null) return -1;
+//
+//                    return rhs.compareTo(lhs);
+//                }
+//            };
+//            return myComparator;
         }
     }
 }
