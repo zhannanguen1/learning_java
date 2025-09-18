@@ -1,5 +1,7 @@
 package net.xonich.function;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -30,16 +32,16 @@ public class DemoComparators2 {
         System.out.println(books);
     }
 
-    public static class Book implements Comparable<Book>{
+    public static class Book implements Comparable<Book> {
 
         private String title;
         private String author;
-        private int yearOfPublication;
+        private LocalDate yearOfPublication;
 
         public Book(String title, String author, int yearOfPublication) {
             this.title = title;
             this.author = author;
-            this.yearOfPublication = yearOfPublication;
+            this.yearOfPublication = LocalDate.of(yearOfPublication, Month.JANUARY, 1);
         }
 
         @Override
@@ -57,10 +59,10 @@ public class DemoComparators2 {
             if (this.author.compareTo(other.author) < 0) {
                 return -1;
             }
-            if (this.yearOfPublication < 0) {
+            if (this.yearOfPublication.compareTo(other.yearOfPublication) < 0) {
                 return 1;
             }
-            if (this.yearOfPublication > 0) {
+            if (this.yearOfPublication.compareTo(other.yearOfPublication) > 0) {
                 return -1;
             }
             return 0;
@@ -75,4 +77,26 @@ public class DemoComparators2 {
                     "}\n";
         }
     }
+
+    public enum Status {
+
+        NEW,
+        IN_PROGRESS,
+        PAUSE,
+        SUCCESS,
+        FAILED;
+
+        private String description;
+        private boolean isFinal;
+
+        public String getDescription() {
+            return description;
+        }
+
+        public boolean isFinal() {
+            return isFinal;
+        }
+    }
+
+
 }
