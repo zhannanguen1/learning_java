@@ -3,11 +3,12 @@ package net.xonich.function;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class DemoHomeWorkStream {
 
-    public enum Month {
+    public enum MyMonth {
 
         JANUARY("JANUARY", "Январь"),
         FEBRUARY("FEBRUARY", "Февраль"),
@@ -25,7 +26,7 @@ public class DemoHomeWorkStream {
         private String en;
         private String russ;
 
-        Month(String en, String russ) {
+        MyMonth(String en, String russ) {
 
             this.en = en;
             this.russ = russ;
@@ -35,8 +36,8 @@ public class DemoHomeWorkStream {
             return russ;
         }
 
-        public static Month fromEnglish(String englishName) {
-            for (Month month : values()) {
+        public static MyMonth fromEnglish(String englishName) {
+            for (MyMonth month : values()) {
                 if (month.en.equals(englishName)) {
                     return month;
                 }
@@ -45,7 +46,8 @@ public class DemoHomeWorkStream {
         }
     }
 
-//    public static String translate(Month monthEn) {
+    public static void main1(String[] args) {
+
 //        Map<String, String> month = Map.of(
 //                "January", "Январь",
 //                "February", "Февраль",
@@ -59,11 +61,6 @@ public class DemoHomeWorkStream {
 //                "October", "Октябрь",
 //                "November", "Ноябрь"
 //        );
-//        month.put("kk", "fdf");
-//        return monthRuss;
-//    }
-
-    public static void main1(String[] args) {
 
         List<LocalDate> dates = new ArrayList<>();
         dates.add(LocalDate.now());
@@ -78,7 +75,7 @@ public class DemoHomeWorkStream {
         List<String> monthList = dates.stream()
                 .map(LocalDate::getMonth)
                 .distinct()
-                .map(m -> Month.fromEnglish(String.valueOf(m)).getRuss())
+                .map(m -> MyMonth.fromEnglish(String.valueOf(m)).getRuss())
                 .toList();
 
         System.out.println(monthList);
@@ -87,8 +84,9 @@ public class DemoHomeWorkStream {
     public static void main(String[] args) {
         Random random = new Random();
 
-        int sum = random
-                .ints(0, 1_000_00)
+        long sum = random
+                .ints(0, 1_000_000)
+                .filter(i -> i % 2 == 0)
                 .limit(100)
                 .sum();
         System.out.println(sum);
