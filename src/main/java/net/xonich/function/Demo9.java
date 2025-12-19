@@ -66,21 +66,13 @@ public class Demo9 {
                 .flatMap(x -> Stream.of(LocalDateTime.of(x, midnight), LocalDateTime.of(x, morning), LocalDateTime.of(x, noon), LocalDateTime.of(x, evening)))
                 .forEach(System.out::println);
 
+        localDates.stream()
+                .flatMap(x -> Stream.of(x.atTime(midnight), x.atTime(morning), x.atTime(noon), x.atTime(evening)))
+                .forEach(System.out::println);
+
         LocalDate now = LocalDate.now();
         LocalDateTime localDateTime = now.atTime(midnight);
-    }
 
-    class Group {
 
-        String groupName;
-        List<Person> boys;
-        List<Person> girls;
-    }
-
-    class Person {
-
-        String firstName;
-        String lastName;
-        LocalDate birthday;
     }
 }
