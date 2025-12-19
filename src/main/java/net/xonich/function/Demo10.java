@@ -52,6 +52,9 @@ public class Demo10 {
                                         .map(Person::getFirstName))
                                 .toList();
 
+//        groups.stream()
+//                        .flatMap(g -> Stream.builder())
+
         allNames.forEach(System.out::println);
         allNames2.forEach(System.out::println);
     }
