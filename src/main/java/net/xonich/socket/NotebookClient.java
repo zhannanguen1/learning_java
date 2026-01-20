@@ -25,10 +25,16 @@ public class NotebookClient {
 
     public void sendMessages() throws IOException {
 
-        outputStream.write("ф".getBytes());
+        outputStream.write("ф".repeat(1000).getBytes());
         outputStream.flush();
 
-        outputStream.write("и".getBytes());
+        outputStream.write("и\n".getBytes());
+        outputStream.flush();
+
+        outputStream.write("ф".repeat(1000).getBytes());
+        outputStream.flush();
+
+        outputStream.write("и\n".getBytes());
         outputStream.flush();
     }
 
