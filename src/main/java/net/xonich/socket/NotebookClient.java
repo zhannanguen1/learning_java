@@ -20,7 +20,7 @@ public class NotebookClient {
         outputStream.write(fileName.getBytes());
         outputStream.flush();
 
-        Thread.sleep(100);
+//        Thread.sleep(100);
     }
 
     public void sendMessages() throws IOException {

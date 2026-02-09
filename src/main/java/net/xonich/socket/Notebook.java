@@ -20,7 +20,7 @@ public class Notebook {
         outputStream.write("Укажите название файла: ".getBytes());
         outputStream.flush();
 
-        byte[] buffer = new byte[1000];
+        byte[] buffer = new byte[50];
 
         int received = inputStream.read(buffer);
         String fileName = new String(buffer, 0, received).trim();
