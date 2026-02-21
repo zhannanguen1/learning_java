@@ -8,18 +8,37 @@ import java.net.Socket;
 
 public class Bob {
 
-    public static void main(String[] args) throws IOException {
-        Socket socket = new Socket("127.0.0.1", 50000);
+    public static SimpleData connectAndReceive() throws IOException {
 
-        SimpleData simpleDataBob = new SimpleData(0);
+        Socket socket = new Socket("127.0.0.1", 60000);
+
+        SimpleData simpleDataBob = new SimpleData(0, 0);
 
         InputStream inputStream = socket.getInputStream();
 
         byte[] buffer = new byte[1000];
+        int totalRead = 0;
 
-        int received = inputStream.read(buffer);
+        while (totalRead < 8) {
+            int read = inputStream.read(buffer, totalRead, 8 - totalRead);
+            if (read == -1) {
+                throw new IOException("Поток закрыт, не удалось прочитать все данные");
+            }
+            totalRead += read;
+        }
 
-        System.out.println(readInt(buffer));
+        byte[] numBytes = new byte[4];
+        System.arraycopy(buffer, 0, numBytes, 0, 4);
+        int receivedNum = readInt(numBytes);
+        simpleDataBob.setNum(receivedNum);
+
+        byte[] moonBytes = new byte[4];
+        System.arraycopy(buffer, 4, moonBytes, 0, 4);
+        int receivedMoon = readInt(moonBytes);
+        simpleDataBob.setMoon(receivedMoon);
+
+        socket.close();
+        return simpleDataBob;
     }
 
     public static int readInt(byte[] nums) {
