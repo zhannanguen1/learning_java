@@ -11,7 +11,7 @@ import java.util.concurrent.TimeoutException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SerializationTest {
+public class SerializationIntTest {
 
     @Test
     void testWriteAndReadInt() {

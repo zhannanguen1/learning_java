@@ -19,32 +19,34 @@ public class BobText {
 
             textData.setFirstName(firstName);
             textData.setLastName(lastName);
+
+            System.out.println("firstName = " + firstName);
+            System.out.println("lastName = " + lastName);
         }
 
         socket.close();
         return textData;
     }
 
-    public static String receiveStringFromStream(InputStream in) throws IOException {
+    public static String receiveStringFromStream(InputStream inputStream) throws IOException {
         byte[] lengthBytes = new byte[4];
         int totalRead = 0;
 
         while (totalRead < 4) {
-            int read = in.read(lengthBytes, totalRead, 4 - totalRead);
+            int read = inputStream.read(lengthBytes, totalRead, 4 - totalRead);
             if (read == -1) {
                 throw new IOException("Поток закрыт, не удалось прочитать длину строки");
             }
             totalRead += read;
         }
 
-        int length = ByteBuffer.wrap(lengthBytes).getInt();
-
+        int length = readInt(lengthBytes);
 
         byte[] stringBytes = new byte[length];
         totalRead = 0;
 
         while (totalRead < length) {
-            int read = in.read(stringBytes, totalRead, length - totalRead);
+            int read = inputStream.read(stringBytes, totalRead, length - totalRead);
             if (read == -1) {
                 throw new IOException("Поток закрыт, не удалось прочитать строку");
             }
@@ -52,6 +54,15 @@ public class BobText {
         }
 
 
-        return new String(stringBytes);
+        return readString(stringBytes);
+    }
+
+    public static String readString(byte[] bytes) {
+        return new String(bytes);
+    }
+
+    public static int readInt(byte[] bytes) {
+        ByteBuffer buffer = ByteBuffer.wrap(bytes);
+        return buffer.getInt();
     }
 }

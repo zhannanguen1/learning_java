@@ -9,9 +9,9 @@ import java.net.Socket;
 
 public class AliceText {
 
-    public static void sendTextData(int port, String firstName, String lastName) throws IOException {
+    public static void sendTextData(String firstName, String lastName) throws IOException {
         TextData textData = new TextData(firstName, lastName);
-        ServerSocket serverSocket = new ServerSocket(port);
+        ServerSocket serverSocket = new ServerSocket(60001);
         Socket socket = serverSocket.accept();
         OutputStream outputStream = socket.getOutputStream();
 
@@ -24,18 +24,28 @@ public class AliceText {
         serverSocket.close();
     }
 
-    public static void sendStringOverStream(OutputStream out, String str) throws IOException {
+    public static void sendStringOverStream(OutputStream outputStream, String str) throws IOException {
         byte[] bytes = str.getBytes();
-        out.write(convertIntToBytes(bytes.length));
-        out.write(bytes);
+        outputStream.write(convertIntToBytes(bytes.length));
+        outputStream.write(bytes);
     }
 
-    public static byte[] convertIntToBytes(int num) {
+    public static byte[] convertIntToBytes(int value) {
         byte[] nums = new byte[4];
-        nums[0] = (byte) ((num >> 24) & 0xFF);
-        nums[1] = (byte) ((num >> 16) & 0xFF);
-        nums[2] = (byte) ((num >> 8) & 0xFF);
-        nums[3] = (byte) (num & 0xFF);
+        int firstByte = value & 0xFF_00_00_00;
+        firstByte = firstByte >> 24;
+        nums[0] = (byte) firstByte;
+
+        int secByte = value & 0x00_FF_00_00;
+        secByte = secByte >> 16;
+        nums[1] = (byte) secByte;
+
+        int thirdByte = value & 0x00_00_FF_00;
+        thirdByte = thirdByte >> 8;
+        nums[2] = (byte) thirdByte;
+
+        nums[3] = (byte) value;
+
         return nums;
     }
 }

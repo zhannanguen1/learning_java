@@ -9,10 +9,22 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TextDataIntegrationTest {
+public class SerializationStringTest {
+
+    @Test
+    public void test() {
+
+        String firstName = "Zhanna";
+        byte[] bytes = firstName.getBytes();
+        AliceText.convertIntToBytes(bytes.length);
+        String readString = BobText.readString(bytes);
+
+        assertEquals(firstName, readString);
+    }
 
     @Test
     public void testTextDataTransfer() throws Exception {
+
         CompletableFuture<Void> serverDone = new CompletableFuture<>();
         String firstName = "Alice";
         String lastName = "Wonderland";
@@ -20,7 +32,7 @@ public class TextDataIntegrationTest {
 
         Thread serverThread = new Thread(() -> {
             try {
-                AliceText.sendTextData(port, firstName, lastName);
+                AliceText.sendTextData(firstName, lastName);
                 serverDone.complete(null);
             } catch (IOException e) {
                 serverDone.completeExceptionally(e);
