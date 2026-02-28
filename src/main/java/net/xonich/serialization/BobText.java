@@ -9,6 +9,11 @@ import java.nio.ByteBuffer;
 
 public class BobText {
 
+    public static void main(String[] args) throws IOException {
+
+        receiveTextData("127.0.0.1", 60001);
+    }
+
     public static TextData receiveTextData(String host, int port) throws IOException {
         Socket socket = new Socket(host, port);
         TextData textData = new TextData();

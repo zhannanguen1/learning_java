@@ -9,11 +9,16 @@ import java.net.Socket;
 
 public class Alice {
 
+    public static void main(String[] args) throws IOException {
+
+        startServerAndSend(123, 345);
+    }
+
     public static void startServerAndSend(int num, int moon) throws IOException {
 
         SimpleData simpleDataAlice = new SimpleData(num, moon);
 
-        ServerSocket serverSocket = new ServerSocket(60000);
+        ServerSocket serverSocket = new ServerSocket(50000);
         Socket socket = serverSocket.accept();
 
         OutputStream outputStream = socket.getOutputStream();

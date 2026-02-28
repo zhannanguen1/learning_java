@@ -9,6 +9,11 @@ import java.net.Socket;
 
 public class AliceText {
 
+    public static void main(String[] args) throws IOException {
+
+        sendTextData("Harry", "Potter");
+    }
+
     public static void sendTextData(String firstName, String lastName) throws IOException {
         TextData textData = new TextData(firstName, lastName);
         ServerSocket serverSocket = new ServerSocket(60001);

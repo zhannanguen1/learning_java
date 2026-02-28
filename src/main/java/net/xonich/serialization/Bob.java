@@ -8,9 +8,17 @@ import java.net.Socket;
 
 public class Bob {
 
+    public static void main(String[] args) throws IOException {
+
+        SimpleData simpleData = connectAndReceive();
+
+        System.out.println(simpleData.getNum());
+        System.out.println(simpleData.getMoon());
+    }
+
     public static SimpleData connectAndReceive() throws IOException {
 
-        Socket socket = new Socket("127.0.0.1", 60000);
+        Socket socket = new Socket("127.0.0.1", 50000);
 
         SimpleData simpleDataBob = new SimpleData(0, 0);
 
@@ -57,4 +65,6 @@ public class Bob {
 
         return finalRes;
     }
+
+
 }
