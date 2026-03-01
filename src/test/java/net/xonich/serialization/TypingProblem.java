@@ -2,24 +2,11 @@ package net.xonich.serialization;
 
 import org.junit.jupiter.api.Test;
 
+import static net.xonich.serialization.DeserializationUtils.deserialization;
 import static net.xonich.serialization.SerializationUtils.writeInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TypingProblem {
-
-    public enum MessageType {
-
-        MESSAGE_BAR(1, MessageBar.class),
-        MESSAGE_FOO(2, MessageFoo.class);
-
-        public final byte code;
-        public final Class<?> clazz;
-
-        MessageType(int code, Class<?> clazz) {
-            this.code = (byte) code;
-            this.clazz = clazz;
-        }
-    }
 
     @Test
     public void messageBarSerialization() {
@@ -35,16 +22,15 @@ public class TypingProblem {
         writeInt(messageBar.getMin(), buffer, off);
         off += 4;
 
-        int readOffset = 1;
-        MessageBar actual = new MessageBar(
-                DeserializationUtils.readInt(buffer, readOffset),
-                DeserializationUtils.readInt(buffer, readOffset + 4),
-                DeserializationUtils.readInt(buffer, readOffset + 8)
-        );
+        Object actual = deserialization(buffer);
 
-        assertEquals(messageBar.getNum(), actual.getNum());
-        assertEquals(messageBar.getMax(), actual.getMax());
-        assertEquals(messageBar.getMin(), actual.getMin());
+        System.out.println(((MessageBar) actual).getNum());
+        System.out.println(((MessageBar) actual).getMax());
+        System.out.println(((MessageBar) actual).getMin());
+
+        assertEquals(messageBar.getNum(),  ((MessageBar) actual).getNum());
+        assertEquals(messageBar.getMax(),  ((MessageBar) actual).getMax());
+        assertEquals(messageBar.getMin(), ((MessageBar) actual).getMin());
     }
 
     @Test
@@ -57,19 +43,14 @@ public class TypingProblem {
         int off = 0;
         buffer[off] = MessageType.MESSAGE_FOO.code;
 
-        byte[] stringBytes = messageFoo.getName().getBytes();
+        byte[] stringBytes = messageFoo.getName().getBytes(); // Массив байт строки "Test"
 
-        writeInt(stringBytes.length, buffer, 1);
-        System.arraycopy(stringBytes, 0, buffer, 5, stringBytes.length);
+        writeInt(stringBytes.length, buffer, 1); // Записываем длину строки "Test", добавляем в буффер на место 1 (на 0 стоит тип)
+        System.arraycopy(stringBytes, 0, buffer, 5, stringBytes.length); // добавляем в буффер текст на индекс 5
 
+        Object actual = deserialization(buffer);
 
-        int length = DeserializationUtils.readInt(buffer, 1);
-        byte[] receivedBytes = new byte[length];
-        System.arraycopy(buffer, 5, receivedBytes, 0, length);
-
-        String string = new String(stringBytes);
-
-        System.out.println(string);
-        assertEquals(messageFoo.getName(), string);
+        System.out.println(((MessageFoo) actual).getName());
+        assertEquals(messageFoo.getName(), ((MessageFoo) actual).getName());
     }
 }

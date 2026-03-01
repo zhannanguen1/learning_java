@@ -18,4 +18,33 @@ public class DeserializationUtils {
 
         return finalRes;
     }
+
+    public static String readString(byte[] buffer, int offset) {
+
+        int length = readInt(buffer, offset); // длина строки
+        byte[] receivedBytes = new byte[length]; // Создаем массив нужного размера
+        System.arraycopy(buffer, offset + 4, receivedBytes, 0, length); // Копируем байты строки с 5 элемента (сдвиг на 4 байта, так как там была запись длины)
+
+        return new String(receivedBytes);
+    }
+
+    public static Object deserialization(byte[] buffer) {
+
+        byte typeCode = buffer[0]; // код типа
+        if (typeCode == MessageType.MESSAGE_BAR.code) {
+
+            int readOffset = 1;
+            MessageBar messageBar = new MessageBar(
+                    DeserializationUtils.readInt(buffer, readOffset),
+                    DeserializationUtils.readInt(buffer, readOffset + 4),
+                    DeserializationUtils.readInt(buffer, readOffset + 8)
+            );
+            return messageBar;
+        } else if (typeCode == MessageType.MESSAGE_FOO.code) {
+            String name = DeserializationUtils.readString(buffer, 1);
+            return new MessageFoo(name);
+        } else {
+            throw new IllegalArgumentException("Неизвестный тип");
+        }
+    }
 }
